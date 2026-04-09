@@ -1,0 +1,28 @@
+generator client {
+ provider = "prisma-client-js"
+}
+datasource db {
+ provider = "postgresql"
+}
+model User {
+ id Int @id @default(autoincrement())
+ name String
+ email String @unique
+ password String
+ role Role @default(USUARIO)
+ createdAt DateTime @default(now()) @map("created_at")
+ @@map("users")
+}
+enum Role {
+ ADMIN
+ USUARIO
+}
+model Course {
+ id Int @id @default(autoincrement())
+ title String
+ description String
+ workload Int
+ isActive Boolean @default(true) @map("is_active")
+ createdAt DateTime @default(now()) @map("created_at")
+ @@map("courses")
+}

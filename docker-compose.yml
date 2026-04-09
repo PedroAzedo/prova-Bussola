@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    container_name: "prova_db"
+    
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=dbpass
+      - POSTGRES_DB=db1
+    ports:
+      - "5432:5432"
+    networks:
+      - minha-rede
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    networks:
+      - minha-rede
+
+networks:
+  minha-rede:
+    driver: bridge
